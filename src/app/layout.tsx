@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 
 const fontJetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ function Nav() {
           rel="noopener noreferrer"
           className="flex items-center space-x-2"
         >
+          <Image src="/logo.png" width={50} height={50} alt="Subtrant logo" />
           <span className="font-bold text-xl text-blue-600 hover:underline">
             Subtrant
           </span>
@@ -33,14 +35,6 @@ function Nav() {
               className="px-3 py-2 hover:text-blue-600 transition-colors"
             >
               _home
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/blog"
-              className="px-3 py-2 hover:text-blue-600 transition-colors"
-            >
-              _blog
             </Link>
           </li>
           <li>
