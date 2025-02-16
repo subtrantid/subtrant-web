@@ -2,6 +2,8 @@ import React from "react";
 import { SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import Image from "next/image";
 
+import { FlipWords } from "./components/FlipWords";
+
 interface GithubUser {
   login: string;
   avatar_url: string;
@@ -63,6 +65,8 @@ export default async function RootPage() {
       GetGithubUser("amaerawantoinette"),
     ]);
 
+  const words = ["developers", "designers", "tech geeks", "community"];
+
   return (
     <main className="min-h-screen w-full px-4 py-8 flex flex-col items-center justify-center space-y-6">
       <h1 className="font-bold text-2xl sm:text-4xl text-center">
@@ -70,9 +74,7 @@ export default async function RootPage() {
       </h1>
 
       <p className="text-center max-w-prose text-sm sm:text-base">
-        We're community of people who loves technology, we are community,
-        software developers, tech geeks, or just people who are passionate in IT
-        industry.
+        We are community of {<FlipWords words={words} />}who loves technology.
       </p>
 
       <section className="flex gap-4 justify-center">

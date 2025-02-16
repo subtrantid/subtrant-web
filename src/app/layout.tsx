@@ -59,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${fontJetbrainsMono.className} antialiased bg-black text-white p-10`}
+        className={`${fontJetbrainsMono.className} antialiased bg-black dark text-white p-10`}
       >
         <Nav />
         {children}
