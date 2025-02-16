@@ -2,14 +2,66 @@ import React from "react";
 import { SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import Image from "next/image";
 
-export default async function RootPage() {
-  const mochraiyanGithub = await fetch(
-    "https://api.github.com/users/mochraiyan"
-  );
-  const refliqxGithub = await fetch("https://api.github.com/users/refliqx");
+interface GithubUser {
+  login: string;
+  avatar_url: string;
+  html_url: string;
+}
 
-  const mochraiyanData = await mochraiyanGithub.json();
-  const refliqxData = await refliqxGithub.json();
+async function GetGithubUser(username: string): Promise<GithubUser> {
+  const response = await fetch(`https://api.github.com/users/${username}`);
+  return await response.json();
+}
+
+function Profile({ user, role }: { user: GithubUser; role: string }) {
+  return (
+    <div className="flex flex-col items-center p-4">
+      <div className="rounded-full overflow-hidden w-20 h-20 sm:w-24 sm:h-24 mb-3">
+        <Image
+          src={user.avatar_url}
+          alt={`${user.login}'s avatar`}
+          width={96}
+          height={96}
+          className="rounded-full"
+        />
+      </div>
+      <h2 className="text-center">
+        <a href={user.html_url} className="hover:underline">
+          {user.login}
+        </a>
+      </h2>
+      <p className="text-sm text-gray-600">{role}</p>
+    </div>
+  );
+}
+
+function SocialLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      className="p-2"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={typeof children === "string" ? children : ""}
+    >
+      {children}
+    </a>
+  );
+}
+
+export default async function RootPage() {
+  const [mochraiyanData, refliqxData, amaerawantoinetteData] =
+    await Promise.all([
+      GetGithubUser("mochraiyan"),
+      GetGithubUser("refliqx"),
+      GetGithubUser("amaerawantoinette"),
+    ]);
 
   return (
     <main className="min-h-screen w-full px-4 py-8 flex flex-col items-center justify-center space-y-6">
@@ -24,74 +76,18 @@ export default async function RootPage() {
       </p>
 
       <section className="flex gap-4 justify-center">
-        {/* Discord link not working now */}
-        <a
-          href="https://discord.gg/?"
-          className="p-2"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Join our Discord"
-        >
+        <SocialLink href="https://discord.gg/?">
           <SiDiscord color="white" />
-        </a>
-        <a
-          href="https://github.com/subtrantid"
-          className="p-2"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="See our Github"
-        >
+        </SocialLink>
+        <SocialLink href="https://github.com/subtrantid">
           <SiGithub color="white" />
-        </a>
+        </SocialLink>
       </section>
 
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 w-full max-w-5xl px-4">
-        <div className="flex flex-col items-center p-4">
-          <div className="rounded-full overflow-hidden w-20 h-20 sm:w-24 sm:h-24 mb-3">
-            {/* Should be img, but what works for now. */}
-            <div className="w-full h-full bg-slate-900" />
-          </div>
-          <h2 className="text-center">
-            <a href="#" className="hover:underline">
-              ???
-            </a>
-          </h2>
-          <p className="text-sm text-gray-600">???</p>
-        </div>
-        <div className="flex flex-col items-center p-4">
-          <div className="rounded-full overflow-hidden w-20 h-20 sm:w-24 sm:h-24 mb-3">
-            <Image
-              src={mochraiyanData.avatar_url}
-              alt={`${mochraiyanData.login}'s avatar`}
-              width={96}
-              height={96}
-              className="rounded-full"
-            />
-          </div>
-          <h2 className="text-center">
-            <a href={mochraiyanData.html_url} className="hover:underline">
-              {mochraiyanData.login}
-            </a>
-          </h2>
-          <p className="text-sm text-gray-600">Founder</p>
-        </div>
-        <div className="flex flex-col items-center p-4">
-          <div className="rounded-full overflow-hidden w-20 h-20 sm:w-24 sm:h-24 mb-3">
-            <Image
-              src={refliqxData.avatar_url}
-              alt={`${refliqxData.login}'s avatar`}
-              width={96}
-              height={96}
-              className="rounded-full"
-            />
-          </div>
-          <h2 className="text-center">
-            <a href={refliqxData.html_url} className="hover:underline">
-              {refliqxData.login}
-            </a>
-          </h2>
-          <p className="text-sm text-gray-600">Developer</p>
-        </div>
+        <Profile user={amaerawantoinetteData} role="Designer" />
+        <Profile user={mochraiyanData} role="Founder" />
+        <Profile user={refliqxData} role="Developer" />
       </section>
     </main>
   );
