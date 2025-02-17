@@ -65,7 +65,7 @@ export default async function RootPage() {
       GetGithubUser("amaerawantoinette"),
     ]);
 
-  const words = ["developers", "designers", "tech geeks", "community"];
+  const words = ["developers", "designers", "tech geeks", "students"];
 
   return (
     <main className="min-h-screen w-full px-4 py-8 flex flex-col items-center justify-center space-y-6">
