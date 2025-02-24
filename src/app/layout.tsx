@@ -9,8 +9,22 @@ const fontJetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Subtrant",
-  description: "Group of people who loves technology",
+  title: "Subtrant | Tech Group",
+  description:
+    "Join Subtrant, a passionate group of tech enthusiasts exploring innovation, coding, and latest & greatest tech.",
+  robots: "index, follow",
+  viewport: "width=device-width, initial-scale=1",
+  authors: [{ name: "Subtrant Team" }],
+  keywords:
+    "tech community, software development, coding, tech enthusiasts, innovation, technology trends, developers",
+  openGraph: {
+    title: "Subtrant | Tech Enthusiasts & Developers Community",
+    description: "Community",
+    url: "https://subtrant.icu",
+    siteName: "Subtrant",
+    type: "website",
+    locale: "en_US",
+  },
 };
 
 function Nav() {
