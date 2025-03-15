@@ -1,19 +1,25 @@
-import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 
-const fontJetbrainsMono = JetBrains_Mono({
+const fontPoppins = Poppins({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "Subtrant | Tech Group",
   description:
     "Join Subtrant, a passionate group of tech enthusiasts exploring innovation, coding, and latest & greatest tech.",
   robots: "index, follow",
-  viewport: "width=device-width, initial-scale=1",
   authors: [{ name: "Subtrant Team" }],
   keywords:
     "tech community, software development, coding, tech enthusiasts, innovation, technology trends, developers",
@@ -29,39 +35,56 @@ export const metadata: Metadata = {
 
 function Nav() {
   return (
-    <nav className="sticky top-0 w-full backdrop-blur-sm px-4 py-3">
+    <nav className="sticky top-0 z-10 w-full backdrop-blur-sm bg-black/80 border-b border-gray-800 px-4 py-3">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <a
-          href="https://github.com/subtrantid"
+          href="/"
           rel="noopener noreferrer"
           className="flex items-center space-x-2"
         >
           <Image src="/logo.png" width={50} height={50} alt="Subtrant logo" />
-          <span className="font-bold text-xl text-blue-600 hover:underline">
-            Subtrant
-          </span>
         </a>
 
         <ul className="flex items-center space-x-1 sm:space-x-4 text-sm sm:text-base font-semibold">
           <li>
             <Link
               href="/"
-              className="px-3 py-2 hover:text-blue-600 transition-colors"
+              className="px-3 py-2 hover:text-blue-500 transition-colors"
             >
-              _home
+              Home
             </Link>
           </li>
           <li>
             <Link
               href="/about"
-              className="px-3 py-2 hover:text-blue-600 transition-colors"
+              className="px-3 py-2 hover:text-blue-500 transition-colors"
             >
-              _about
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/contact"
+              className="px-3 py-2 hover:text-blue-500 transition-colors"
+            >
+              Contact
             </Link>
           </li>
         </ul>
       </div>
     </nav>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="w-full border-t border-gray-800 mt-auto py-6 px-4">
+      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="text-sm text-gray-500">
+          © {new Date().getFullYear()} Subtrant. All rights reserved.
+        </div>
+      </div>
+    </footer>
   );
 }
 
@@ -73,10 +96,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${fontJetbrainsMono.className} antialiased bg-black dark text-white p-10`}
+        className={`${fontPoppins.className} antialiased bg-black text-white min-h-screen flex flex-col`}
       >
         <Nav />
-        {children}
+        <main className="flex-grow px-4 py-6">{children}</main>
+        <Footer />
       </body>
     </html>
   );
