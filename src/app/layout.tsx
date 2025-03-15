@@ -56,6 +56,14 @@ function Nav() {
           </li>
           <li>
             <Link
+              href="/projects"
+              className="px-3 py-2 hover:text-blue-500 transition-colors"
+            >
+              Projects
+            </Link>
+          </li>
+          <li>
+            <Link
               href="/about"
               className="px-3 py-2 hover:text-blue-500 transition-colors"
             >
